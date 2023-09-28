@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +24,7 @@ public class Main {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
             String line;
 
             // Read random seed
@@ -70,18 +73,16 @@ public class Main {
                 }
             }
 
-            // Close the reader
+            // Close the reader and writer
             reader.close();
-
-            // Log results to output file
-            // TODO: Implement logging of results to the output file
+            writer.close();
 
             System.out.println("Processing completed successfully.");
 
         } catch (FileNotFoundException e) {
             System.out.println("The input file was not found: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("An error occurred while reading the input file: " + e.getMessage());
+            System.out.println("An error occurred while reading/writing the file: " + e.getMessage());
         } catch (NumberFormatException e) {
             System.out.println("Invalid number format in the input file: " + e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {

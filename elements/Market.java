@@ -29,7 +29,7 @@ public class Market {
         // Implementation of open market operation
     }
 
-     private void checkTransactions() {
+    private void checkTransactions() {
         // Implementation to check for overlapping prices and make transactions
     }
 }

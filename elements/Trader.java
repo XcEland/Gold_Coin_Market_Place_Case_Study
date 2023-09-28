@@ -1,4 +1,5 @@
 package elements;
+
 public class Trader {
     private int id;
     private Wallet wallet;
@@ -10,12 +11,24 @@ public class Trader {
     }
 
     public int sell(double amount, double price, Market market) {
-        // Implementation of selling order by the trader
-        return 0;
+        // Create a new SellingOrder with the trader's ID, amount, and price
+        SellingOrder sellingOrder = new SellingOrder(this.id, amount, price);
+
+        // Add the selling order to the market
+        market.addSellingOrder(sellingOrder);
+
+        // Return the ID of the added selling order
+        return sellingOrder.getOrderID();
     }
 
     public int buy(double amount, double price, Market market) {
-        // Implementation of buying order by the trader
-        return 0;
+        // Create a new BuyingOrder with the trader's ID, amount, and price
+        BuyingOrder buyingOrder = new BuyingOrder(this.id, amount, price);
+
+        // Add the buying order to the market
+        market.addBuyingOrder(buyingOrder);
+
+        // Return the ID of the added buying order
+        return buyingOrder.getOrderID();
     }
 }
