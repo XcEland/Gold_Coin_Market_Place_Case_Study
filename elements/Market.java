@@ -1,16 +1,19 @@
 package elements;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class Market {
     private PriorityQueue<SellingOrder> sellingOrders;
     private PriorityQueue<BuyingOrder> buyingOrders;
+    private ArrayList<Transaction> transactions;
     private int fee;
 
     public Market(int fee) {
         this.fee = fee;
         sellingOrders = new PriorityQueue<>();
         buyingOrders = new PriorityQueue<>();
+        transactions = new ArrayList<>();
     }
 
     public void addSellingOrder(SellingOrder order) {
@@ -43,6 +46,10 @@ public class Market {
                     buyingOrder.setAmount(buyingOrder.getAmount() - amount);
                     sellingOrder.setAmount(sellingOrder.getAmount() - amount);
 
+                    // Create a new transaction and add it to the list
+                    Transaction transaction = new Transaction(buyingOrder, sellingOrder);
+                    transactions.add(transaction);
+
                     amount = 0; // All amount from the selling order has been fulfilled
                     if (buyingOrder.getAmount() == 0)
                         buyingOrders.poll(); // Remove the buying order if it's completely fulfilled
@@ -55,6 +62,10 @@ public class Market {
                     // Update the amounts in the buying and selling orders
                     amount -= buyingOrder.getAmount();
                     buyingOrders.poll(); // Remove the fulfilled buying order
+
+                    // Create a new transaction and add it to the list
+                    Transaction transaction = new Transaction(buyingOrder, sellingOrder);
+                    transactions.add(transaction);
                 } else {
                     break; // No more matching buying orders
                 }
@@ -86,6 +97,10 @@ public class Market {
                     // Update the amounts in the buying and selling orders
                     buyAmount -= sellAmount;
                     sellAmount = 0;
+
+                    // Create a new transaction and add it to the list
+                    Transaction transaction = new Transaction(buyingOrder, sellingOrder);
+                    transactions.add(transaction);
 
                     if (buyAmount == 0)
                         break; // The buying order is completely fulfilled, exit the loop

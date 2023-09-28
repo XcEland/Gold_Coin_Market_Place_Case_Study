@@ -7,4 +7,12 @@ public class Transaction {
         this.buyingOrder = buyingOrder;
         this.sellingOrder = sellingOrder;
     }
+
+    public BuyingOrder getBuyingOrder() {
+        return buyingOrder;
+    }
+
+    public SellingOrder getSellingOrder() {
+        return sellingOrder;
+    }
 }
