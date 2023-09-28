@@ -7,13 +7,13 @@ public class Market {
     private PriorityQueue<SellingOrder> sellingOrders;
     private PriorityQueue<BuyingOrder> buyingOrders;
     private ArrayList<Transaction> transactions;
-    private int fee;
+    private double fee;
 
-    public Market(int fee) {
+    public Market(double fee) {
         this.fee = fee;
-        sellingOrders = new PriorityQueue<>();
-        buyingOrders = new PriorityQueue<>();
-        transactions = new ArrayList<>();
+        this.sellingOrders = new PriorityQueue<>();
+        this.buyingOrders = new PriorityQueue<>();
+        this.transactions = new ArrayList<>();
     }
 
     public void addSellingOrder(SellingOrder order) {
