@@ -31,4 +31,5 @@ public class Trader {
         // Return the ID of the added buying order
         return buyingOrder.getOrderID();
     }
+    
 }

@@ -22,5 +22,32 @@ public class BuyingOrder extends Order implements Comparable<BuyingOrder> {
         }
     }
 
+	public int getOrderID() {
+		return 0;
+	}
+
     // Getters and Setters
+    public int getTraderID() {
+        return super.getTraderID();
+    }
+
+    public double getAmount() {
+        return super.getAmount();
+    }
+
+    public double getPrice() {
+        return super.getPrice();
+    }
+
+    public void setTraderID(int traderID) {
+        super.setTraderID(traderID);
+    }
+
+    public void setAmount(double amount) {
+        super.setAmount(amount);
+    }
+
+    public void setPrice(double price) {
+        super.setPrice(price);
+    }
 }
