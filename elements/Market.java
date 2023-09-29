@@ -138,4 +138,46 @@ public class Market {
             }
         }
     }
+
+    public void addTrader(Trader trader) {
+    }
+
+    public Trader getTrader(int traderId) {
+        return null;
+    }
+
+    public double getBestSellingPrice() {
+        return 0;
+    }
+
+    public double getBestBuyingPrice() {
+        return 0;
+    }
+
+    public Trader[] getTraders() {
+        return null;
+    }
+
+    public void adjustGoldCoinPrice(double price) {
+    }
+
+    public String getTotalBuyingPQ() {
+        return null;
+    }
+
+    public String getTotalSellingPQ() {
+        return null;
+    }
+
+    public String getSuccessfulTransactions() {
+        return null;
+    }
+
+    public String getInvalidQueries() {
+        return null;
+    }
+
+    public String getAveragePrice() {
+        return null;
+    }
 }

@@ -80,4 +80,13 @@ public class Wallet {
     public void removeBlockedUSD(double transactionCost) {
     }
 
+    public void depositUSD(double depositAmount) {
+    }
+
+    public void withdrawUSD(double withdrawAmount) {
+    }
+
+    public void depositGoldCoin(double reward) {
+    }
+
 }

@@ -1,5 +1,6 @@
 package elements;
 
+import java.util.Random;
 public class Trader {
     private int id;
     private Wallet wallet;
