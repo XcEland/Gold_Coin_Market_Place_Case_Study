@@ -68,4 +68,16 @@ public class Wallet {
         this.blockedGoldCoin = blockedGoldCoin;
     }
 
+    public void addGoldCoin(double transactionAmount) {
+    }
+
+    public void removeBlockedGoldCoin(double transactionAmount) {
+    }
+
+    public void addUSD(double d) {
+    }
+
+    public void removeBlockedUSD(double transactionCost) {
+    }
+
 }

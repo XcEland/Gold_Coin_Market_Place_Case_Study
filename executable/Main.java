@@ -1,12 +1,8 @@
 package executable;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import elements.Market;
 import elements.Trader;
@@ -15,79 +11,83 @@ public class Main {
     public static Random myRandom;
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.out.println("Usage: java Main <input_file> <output_file>");
-            return;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the seed for the random object: ");
+        long seed = scanner.nextLong();
+        myRandom = new Random(seed);
+
+        System.out.print("Enter the initial transaction fee, number of users, and number of queries (separated by spaces): ");
+        int fee = scanner.nextInt();
+        int numUsers = scanner.nextInt();
+        int numQueries = scanner.nextInt();
+
+        Market market = new Market(fee);
+
+        ArrayList<Trader> traders = new ArrayList<>();
+        for (int i = 0; i < numUsers; i++) {
+            traders.add(new Trader(0.0, 0.0));
         }
 
-        String inputFile = args[0];
-        String outputFile = args[1];
+        for (int i = 0; i < numQueries; i++) {
+            System.out.println("Enter query " + (i + 1) + " (query type, trader ID, amount, price): ");
+            int queryType = scanner.nextInt();
+            int traderID = scanner.nextInt();
+            double amount = scanner.nextDouble();
+            double price = scanner.nextDouble();
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-            String line;
-
-            // Read random seed
-            line = reader.readLine();
-            long seed = Long.parseLong(line);
-            myRandom = new Random(seed);
-
-            // Read initial transaction fee, number of users, and number of queries
-            line = reader.readLine();
-            String[] params = line.split(" ");
-            int fee = Integer.parseInt(params[0]);
-            int numUsers = Integer.parseInt(params[1]);
-            int numQueries = Integer.parseInt(params[2]);
-
-            // Create market
-            Market market = new Market(fee);
-
-            // Create traders
-            ArrayList<Trader> traders = new ArrayList<>();
-            for (int i = 0; i < numUsers; i++) {
-                traders.add(new Trader(0.0, 0.0));
-            }
-
-            // Process queries
-            for (int i = 0; i < numQueries; i++) {
-                line = reader.readLine();
-                String[] query = line.split(" ");
-
-                int queryType = Integer.parseInt(query[0]);
-                int traderID = Integer.parseInt(query[1]);
-
-                if (queryType == 0) {
-                    // Buy order
-                    double amount = Double.parseDouble(query[2]);
-                    double price = Double.parseDouble(query[3]);
-                    traders.get(traderID).buy(amount, price, market);
-                } else if (queryType == 1) {
-                    // Sell order
-                    double amount = Double.parseDouble(query[2]);
-                    double price = Double.parseDouble(query[3]);
-                    traders.get(traderID).sell(amount, price, market);
+            if (traderID >= 0 && traderID < traders.size()) {
+                Trader trader = traders.get(traderID);
+                if (queryType == 10) {
+                    trader.buy(amount, price, market);
+                } else if (queryType == 11) {
+                    trader.buy(amount, market.getLowestSellingPrice(), market);
+                } else if (queryType == 20) {
+                    trader.sell(amount, price, market);
+                } else if (queryType == 21) {
+                    trader.sell(amount, market.getHighestBuyingPrice(), market);
+                } else if (queryType == 3) {
+                    trader.depositUSD(amount);
+                } else if (queryType == 4) {
+                    trader.withdrawUSD(amount);
+                } else if (queryType == 5) {
+                    trader.printWalletStatus();
+                } else if (queryType == 777) {
+                    distributeRewards(traders);
                 } else if (queryType == 666) {
-                    // Open market operation
-                    double price = Double.parseDouble(query[2]);
                     market.makeOpenMarketOperation(price);
+                } else if (queryType == 500) {
+                    market.printMarketSize();
+                } else if (queryType == 501) {
+                    market.printNumSuccessfulTransactions();
+                } else if (queryType == 502) {
+                    market.printNumInvalidQueries();
+                } else if (queryType == 505) {
+                    market.printCurrentPrices();
+                } else if (queryType == 555) {
+                    printAllWalletStatus(traders);
+                } else {
+                    System.out.println("Invalid query type: " + queryType);
                 }
+            } else {
+                System.out.println("Invalid trader ID: " + traderID);
             }
+        }
 
-            // Close the reader and writer
-            reader.close();
-            writer.close();
+        scanner.close();
 
-            System.out.println("Processing completed successfully.");
+        System.out.println("Processing completed successfully.");
+    }
 
-        } catch (FileNotFoundException e) {
-            System.out.println("The input file was not found: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading/writing the file: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid number format in the input file: " + e.getMessage());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid input format in the input file: " + e.getMessage());
+    private static void distributeRewards(ArrayList<Trader> traders) {
+        for (Trader trader : traders) {
+            double reward = myRandom.nextDouble() * 10;
+            trader.depositGoldCoin(reward);
+        }
+    }
+
+    private static void printAllWalletStatus(ArrayList<Trader> traders) {
+        for (Trader trader : traders) {
+            trader.printWalletStatus();
         }
     }
 }

@@ -1,8 +1,18 @@
 package elements;
 
 public class BuyingOrder extends Order implements Comparable<BuyingOrder> {
+    private double blockedUSD;
     public BuyingOrder(int traderID, double amount, double price) {
         super(traderID, amount, price);
+        this.blockedUSD = 0;
+    }
+
+    public double getBlockedUSD() {
+        return blockedUSD;
+    }
+
+    public void setBlockedUSD(double blockedUSD) {
+        this.blockedUSD = blockedUSD;
     }
 
     @Override
@@ -49,5 +59,9 @@ public class BuyingOrder extends Order implements Comparable<BuyingOrder> {
 
     public void setPrice(double price) {
         super.setPrice(price);
+    }
+
+    public Object getTrader() {
+        return null;
     }
 }

@@ -32,4 +32,7 @@ public class Trader {
         return buyingOrder.getOrderID();
     }
     
+    public Wallet getWallet() {
+        return wallet;
+    }
 }

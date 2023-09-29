@@ -1,8 +1,19 @@
 package elements;
 
 public class SellingOrder extends Order implements Comparable<SellingOrder> {
+    
+    private double blockedGoldCoin;
     public SellingOrder(int traderID, double amount, double price) {
         super(traderID, amount, price);
+        this.blockedGoldCoin = 0;
+    }
+
+    public double getBlockedGoldCoin() {
+        return blockedGoldCoin;
+    }
+
+    public void setBlockedGoldCoin(double blockedGoldCoin) {
+        this.blockedGoldCoin = blockedGoldCoin;
     }
 
     @Override
@@ -49,6 +60,10 @@ public class SellingOrder extends Order implements Comparable<SellingOrder> {
 
     public void setPrice(double price) {
         super.setPrice(price);
+    }
+
+    public Object getTrader() {
+        return null;
     }
 
 }
